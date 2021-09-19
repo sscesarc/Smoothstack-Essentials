@@ -11,6 +11,10 @@ public class BookGenres implements Serializable {
 	private Book book;
 	private Genre genre;
 	
+	public BookGenres() {
+		super();
+	}
+	
 	public BookGenres(int genre_id, int bookId, Book book, Genre genre) {
 		super();
 		this.genre_id = genre_id;
@@ -53,7 +57,7 @@ public class BookGenres implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(book, bookId, genre, genre_id);
+		return Objects.hash(bookId, genre_id);
 	}
 
 	@Override
@@ -65,8 +69,7 @@ public class BookGenres implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		BookGenres other = (BookGenres) obj;
-		return Objects.equals(book, other.book) && bookId == other.bookId && Objects.equals(genre, other.genre)
-				&& genre_id == other.genre_id;
+		return bookId == other.bookId && genre_id == other.genre_id;
 	}
 
 	@Override

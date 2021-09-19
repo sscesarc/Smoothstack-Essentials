@@ -17,6 +17,10 @@ public class BookLoans implements Serializable {
 	private Borrower borrower;
 	private LibraryBranch branch;
 	
+	public BookLoans() {
+		super();
+	}
+	
 	public BookLoans(int bookId, int branchId, int cardNo, Timestamp dateOut, Timestamp dueDate, Timestamp dateIn,
 			Book book, Borrower borrower, LibraryBranch branch) {
 		super();
@@ -105,7 +109,7 @@ public class BookLoans implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(book, bookId, borrower, branch, branchId, cardNo, dateIn, dateOut, dueDate);
+		return Objects.hash(bookId);
 	}
 
 	@Override
@@ -117,10 +121,7 @@ public class BookLoans implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		BookLoans other = (BookLoans) obj;
-		return Objects.equals(book, other.book) && bookId == other.bookId && Objects.equals(borrower, other.borrower)
-				&& Objects.equals(branch, other.branch) && branchId == other.branchId && cardNo == other.cardNo
-				&& Objects.equals(dateIn, other.dateIn) && Objects.equals(dateOut, other.dateOut)
-				&& Objects.equals(dueDate, other.dueDate);
+		return bookId == other.bookId;
 	}
 
 	@Override

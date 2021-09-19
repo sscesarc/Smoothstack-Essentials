@@ -9,6 +9,7 @@ public class Book implements Serializable {
 	private static final long serialVersionUID = -1993541049317852727L;
 	private int bookId;
 	private String title;
+	private int authId;
 	private int pubId;
 	private Publisher publisher;
 	private List<BookAuthors> bookAuthors;
@@ -16,11 +17,16 @@ public class Book implements Serializable {
 	private List<BookLoans> bookLoans;
 	private List<BookCopies> bookCopies;
 	
-	public Book(int bookId, String title, int pubId, Publisher publisher, List<BookAuthors> bookAuthors,
+	public Book() {
+		super();
+	}
+
+	public Book(int bookId, String title, int authId, int pubId, Publisher publisher, List<BookAuthors> bookAuthors,
 			List<BookGenres> bookGenres, List<BookLoans> bookLoans, List<BookCopies> bookCopies) {
 		super();
 		this.bookId = bookId;
 		this.title = title;
+		this.authId = authId;
 		this.pubId = pubId;
 		this.publisher = publisher;
 		this.bookAuthors = bookAuthors;
@@ -43,6 +49,14 @@ public class Book implements Serializable {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public int getAuthId() {
+		return authId;
+	}
+
+	public void setAuthId(int authId) {
+		this.authId = authId;
 	}
 
 	public int getPubId() {
@@ -95,7 +109,7 @@ public class Book implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(bookAuthors, bookCopies, bookGenres, bookId, bookLoans, pubId, publisher, title);
+		return Objects.hash(bookId);
 	}
 
 	@Override
@@ -107,17 +121,15 @@ public class Book implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Book other = (Book) obj;
-		return Objects.equals(bookAuthors, other.bookAuthors) && Objects.equals(bookCopies, other.bookCopies)
-				&& Objects.equals(bookGenres, other.bookGenres) && bookId == other.bookId
-				&& Objects.equals(bookLoans, other.bookLoans) && pubId == other.pubId
-				&& Objects.equals(publisher, other.publisher) && Objects.equals(title, other.title);
+		return bookId == other.bookId;
 	}
 
 	@Override
 	public String toString() {
-		return "Book [bookId=" + bookId + ", title=" + title + ", pubId=" + pubId + ", publisher=" + publisher
-				+ ", bookAuthors=" + bookAuthors + ", bookGenres=" + bookGenres + ", bookLoans=" + bookLoans
-				+ ", bookCopies=" + bookCopies + "]";
+		return "Book [bookId=" + bookId + ", title=" + title + ", authId=" + authId + ", pubId=" + pubId
+				+ ", publisher=" + publisher + ", bookAuthors=" + bookAuthors + ", bookGenres=" + bookGenres
+				+ ", bookLoans=" + bookLoans + ", bookCopies=" + bookCopies + "]";
 	}
+
 	
 }

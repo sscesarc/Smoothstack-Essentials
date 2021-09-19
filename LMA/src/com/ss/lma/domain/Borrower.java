@@ -13,6 +13,10 @@ public class Borrower implements Serializable {
 	private String phone;
 	private List<BookLoans> loans;
 	
+	public Borrower() {
+		super();
+	}
+	
 	public Borrower(int cardNo, String name, String address, String phone, List<BookLoans> loans) {
 		super();
 		this.cardNo = cardNo;
@@ -64,7 +68,7 @@ public class Borrower implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(address, cardNo, loans, name, phone);
+		return Objects.hash(cardNo);
 	}
 
 	@Override
@@ -76,8 +80,7 @@ public class Borrower implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Borrower other = (Borrower) obj;
-		return Objects.equals(address, other.address) && cardNo == other.cardNo && Objects.equals(loans, other.loans)
-				&& Objects.equals(name, other.name) && Objects.equals(phone, other.phone);
+		return cardNo == other.cardNo;
 	}
 
 	@Override

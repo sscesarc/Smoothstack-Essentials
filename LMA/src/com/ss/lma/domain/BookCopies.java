@@ -12,6 +12,10 @@ public class BookCopies implements Serializable {
 	private Book book;
 	private LibraryBranch branch;
 	
+	public BookCopies() {
+		super();
+	}
+	
 	public BookCopies(int bookId, int branchId, int noOfCopies, Book book, LibraryBranch branch) {
 		super();
 		this.bookId = bookId;
@@ -63,7 +67,7 @@ public class BookCopies implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(book, bookId, branch, branchId, noOfCopies);
+		return Objects.hash(bookId, noOfCopies);
 	}
 
 	@Override
@@ -75,8 +79,7 @@ public class BookCopies implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		BookCopies other = (BookCopies) obj;
-		return Objects.equals(book, other.book) && bookId == other.bookId && Objects.equals(branch, other.branch)
-				&& branchId == other.branchId && noOfCopies == other.noOfCopies;
+		return bookId == other.bookId && noOfCopies == other.noOfCopies;
 	}
 
 	@Override

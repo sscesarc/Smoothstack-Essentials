@@ -10,6 +10,10 @@ public class Author implements Serializable {
 	private int authorId;
 	private String authorName;
 	private List<BookAuthors> bookAuthors;
+	
+	public Author() {
+		super();
+	}
 
 	public Author(int authorId, String authorName, List<BookAuthors> bookAuthors) {
 		super();
@@ -44,7 +48,7 @@ public class Author implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(authorId, authorName, bookAuthors);
+		return Objects.hash(authorId);
 	}
 
 	@Override
@@ -56,8 +60,7 @@ public class Author implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Author other = (Author) obj;
-		return authorId == other.authorId && Objects.equals(authorName, other.authorName)
-				&& Objects.equals(bookAuthors, other.bookAuthors);
+		return authorId == other.authorId;
 	}
 
 	@Override

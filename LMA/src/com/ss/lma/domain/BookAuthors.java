@@ -11,6 +11,10 @@ public class BookAuthors implements Serializable {
 	private Author author;
 	private Book book;
 	
+	public BookAuthors() {
+		super();
+	}
+
 	public BookAuthors(int bookId, int authorId, Author author, Book book) {
 		super();
 		this.bookId = bookId;
@@ -53,7 +57,7 @@ public class BookAuthors implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(author, authorId, book, bookId);
+		return Objects.hash(authorId, bookId);
 	}
 
 	@Override
@@ -65,8 +69,7 @@ public class BookAuthors implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		BookAuthors other = (BookAuthors) obj;
-		return Objects.equals(author, other.author) && authorId == other.authorId && Objects.equals(book, other.book)
-				&& bookId == other.bookId;
+		return authorId == other.authorId && bookId == other.bookId;
 	}
 
 	@Override

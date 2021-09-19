@@ -13,6 +13,10 @@ public class LibraryBranch implements Serializable {
 	private List<BookLoans> loans;
 	private List<BookCopies> copies;
 	
+	public LibraryBranch() {
+		super();
+	}
+	
 	public LibraryBranch(int branchId, String branchName, String branchAddress, List<BookLoans> loans,
 			List<BookCopies> copies) {
 		super();
@@ -65,7 +69,7 @@ public class LibraryBranch implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(branchAddress, branchId, branchName, copies, loans);
+		return Objects.hash(branchId);
 	}
 
 	@Override
@@ -77,9 +81,7 @@ public class LibraryBranch implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		LibraryBranch other = (LibraryBranch) obj;
-		return Objects.equals(branchAddress, other.branchAddress) && branchId == other.branchId
-				&& Objects.equals(branchName, other.branchName) && Objects.equals(copies, other.copies)
-				&& Objects.equals(loans, other.loans);
+		return branchId == other.branchId;
 	}
 
 	@Override

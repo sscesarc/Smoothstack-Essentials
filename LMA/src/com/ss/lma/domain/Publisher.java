@@ -9,13 +9,19 @@ public class Publisher implements Serializable {
 	private int publisherId;
 	private String publisherName;
 	private String publisherAddress;
+	private String publisherPhone;
 	private Book book;
 	
-	public Publisher(int publisherId, String publisherName, String publisherAddress, Book book) {
+	public Publisher() {
+		super();
+	}
+
+	public Publisher(int publisherId, String publisherName, String publisherAddress, String publisherPhone, Book book) {
 		super();
 		this.publisherId = publisherId;
 		this.publisherName = publisherName;
 		this.publisherAddress = publisherAddress;
+		this.publisherPhone = publisherPhone;
 		this.book = book;
 	}
 
@@ -43,6 +49,14 @@ public class Publisher implements Serializable {
 		this.publisherAddress = publisherAddress;
 	}
 
+	public String getPublisherPhone() {
+		return publisherPhone;
+	}
+
+	public void setPublisherPhone(String publisherPhone) {
+		this.publisherPhone = publisherPhone;
+	}
+
 	public Book getBook() {
 		return book;
 	}
@@ -53,7 +67,7 @@ public class Publisher implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(book, publisherAddress, publisherId, publisherName);
+		return Objects.hash(publisherId);
 	}
 
 	@Override
@@ -65,14 +79,13 @@ public class Publisher implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Publisher other = (Publisher) obj;
-		return Objects.equals(book, other.book) && Objects.equals(publisherAddress, other.publisherAddress)
-				&& publisherId == other.publisherId && Objects.equals(publisherName, other.publisherName);
+		return publisherId == other.publisherId;
 	}
 
 	@Override
 	public String toString() {
 		return "Publisher [publisherId=" + publisherId + ", publisherName=" + publisherName + ", publisherAddress="
-				+ publisherAddress + ", book=" + book + "]";
+				+ publisherAddress + ", publisherPhone=" + publisherPhone + ", book=" + book + "]";
 	}
 	
 }
