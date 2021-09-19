@@ -1,7 +1,6 @@
 package com.ss.lma.dao;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -15,39 +14,30 @@ public class AuthorDAO extends BaseDAO<Author> {
 		super(conn);
 	}
 
-	public void addAuthor(Author author) throws ClassNotFoundException, SQLException {
-		save("insert into tbl_author (authorName) values (?)", new Object[] {author.getAuthorId(), author.getAuthorName()});
+	public Integer addAuthor(Author author) throws ClassNotFoundException, SQLException {
+		return saveReturnPK("insert into tbl_author (authorName) values (?)", new Object[] {author.getAuthorName()});
 	}
 	
 	public List<Author> readAllAuthors() throws ClassNotFoundException, SQLException {
-		List<Author> authors = new ArrayList<>();
-		
-		PreparedStatement pstmt = conn.prepareStatement("select * from author");
-		
-		ResultSet rs = pstmt.executeQuery();
-		
-		while(rs.next()) {
-			System.out.println("Author ID: " + rs.getInt("authorId"));
-			System.out.println("Author Name: " + rs.getString("authorName"));
-			System.out.println();
-		}
-		
-		return authors;
+		return read("select * from tbl_author", null);
 	}
 	
 	public void updateAuthor(Author author) throws ClassNotFoundException, SQLException {
-		PreparedStatement pstmt = conn.prepareStatement("update tbl_author set authorName where authorId = ?");
-		pstmt.setInt(1, author.getAuthorId());
-		pstmt.setString(2, author.getAuthorName());
-		pstmt.executeUpdate();
+		save("update tbl_author set authorName = ? where authorId = ?", new Object[] {author.getAuthorName(), author.getAuthorId()});
 	}
 	
 	public void deleteAuthor(Author author) throws ClassNotFoundException, SQLException {
-		
+		save("delete from tbl_author where authorId = ?", new Object[] {author.getAuthorId()});
 	}
 	
-	public List<Author> extractData(ResultSet rs) {
-		return null;
-		
+	public List<Author> extractData(ResultSet rs) throws SQLException {
+		List<Author> list = new ArrayList<>();
+		while(rs.next()) {
+			Author author = new Author();
+			author.setAuthorId(rs.getInt("authorId"));
+			author.setAuthorName(rs.getString("authorName"));
+			list.add(author);
+		}
+		return list;
 	}
 }
