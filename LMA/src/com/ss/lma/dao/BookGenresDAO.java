@@ -40,4 +40,15 @@ public class BookGenresDAO extends BaseDAO<BookGenres> {
 		}
 		return list;
 	}
+
+	
+	public BookGenres extractSingleData(ResultSet rs) throws SQLException, ClassNotFoundException {
+		if (rs.next()) {
+			BookGenres bookGenre = new BookGenres();
+			bookGenre.setGenre_id(rs.getInt("genre_id"));
+			bookGenre.setBookId(rs.getInt("bookId"));
+			return bookGenre;
+		}
+		return null;
+	}
 }

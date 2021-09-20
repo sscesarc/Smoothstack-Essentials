@@ -30,6 +30,10 @@ public class PublisherDAO extends BaseDAO<Publisher> {
 		save("delete from tbl_publisher where publisherId = ?", new Object[] {publisher.getPublisherId()});
 	}
 	
+    public Publisher readPublishersByName(String publisherName) throws SQLException, ClassNotFoundException {
+        return readSingle("select * from tbl_publisher where publisherName = ?", new Object[] { publisherName });
+    }
+	
 	public List<Publisher> extractData(ResultSet rs) throws SQLException {
 		List<Publisher> list = new ArrayList<>();
 		while(rs.next()) {
@@ -41,5 +45,17 @@ public class PublisherDAO extends BaseDAO<Publisher> {
 			list.add(publisher);
 		}
 		return list;
+	}
+
+	public Publisher extractSingleData(ResultSet rs) throws SQLException, ClassNotFoundException {
+		if (rs.next()) {
+			Publisher publisher = new Publisher();
+			publisher.setPublisherId(rs.getInt("publisherId"));
+			publisher.setPublisherName(rs.getString("publisherName"));
+			publisher.setPublisherAddress(rs.getString("publisherAddress"));
+			publisher.setPublisherPhone(rs.getString("publisherPhone"));
+			return publisher;
+		}
+		return null;
 	}
 }

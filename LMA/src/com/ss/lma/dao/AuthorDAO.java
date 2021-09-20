@@ -30,6 +30,14 @@ public class AuthorDAO extends BaseDAO<Author> {
 		save("delete from tbl_author where authorId = ?", new Object[] {author.getAuthorId()});
 	}
 	
+    public Author readAuthorById(Integer authorId) throws SQLException, ClassNotFoundException {
+        return readSingle("select * from tbl_author where authorId = ?", new Object[] { authorId });
+    }
+    
+    public Author readAuthorsByName(String authorName) throws SQLException, ClassNotFoundException {
+        return readSingle("select * from tbl_author where authorName = ?", new Object[] { authorName });
+    }
+	
 	public List<Author> extractData(ResultSet rs) throws SQLException {
 		List<Author> list = new ArrayList<>();
 		while(rs.next()) {
@@ -39,5 +47,15 @@ public class AuthorDAO extends BaseDAO<Author> {
 			list.add(author);
 		}
 		return list;
+	}
+	
+	public Author extractSingleData(ResultSet rs) throws SQLException {
+		if(rs.next()) {
+			Author author = new Author();
+			author.setAuthorId(rs.getInt("authorId"));
+			author.setAuthorName(rs.getString("authorName"));
+			return author;
+		}
+		return null;
 	}
 }

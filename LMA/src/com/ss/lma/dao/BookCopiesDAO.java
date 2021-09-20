@@ -30,6 +30,10 @@ public class BookCopiesDAO extends BaseDAO<BookCopies> {
 		save("delete from tbl_book_copies where bookId = ? and branchId = ?", new Object[] {bookCopies.getBookId(), bookCopies.getBranchId()});
 	}
 	
+	public BookCopies readBookCopyById(Integer bookId, Integer branchId) throws ClassNotFoundException, SQLException {
+		return readSingle("SELECT * FROM tbl_book_copies WHERE bookId = ? AND branchId = ?", new Object[] { bookId, branchId });
+	}
+	
 	public List<BookCopies> extractData(ResultSet rs) throws SQLException {
 		List<BookCopies> list = new ArrayList<>();
 		while(rs.next()) {
@@ -41,4 +45,16 @@ public class BookCopiesDAO extends BaseDAO<BookCopies> {
 		}
 		return list;
 	}
+
+	public BookCopies extractSingleData(ResultSet rs) throws SQLException, ClassNotFoundException {
+		if (rs.next()) {
+			BookCopies bookCopy = new BookCopies();
+			bookCopy.setBookId(rs.getInt("bookId"));
+			bookCopy.setBranchId(rs.getInt("branchId"));
+			bookCopy.setNoOfCopies(rs.getInt("noOfCopies"));
+			return bookCopy;
+		}
+		return null;
+	}
+
 }

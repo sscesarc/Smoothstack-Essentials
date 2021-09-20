@@ -44,4 +44,14 @@ public class BookAuthorsDAO extends BaseDAO<BookAuthors> {
 		}
 		return list;
 	}
+
+	public BookAuthors extractSingleData(ResultSet rs) throws SQLException, ClassNotFoundException {
+		if(rs.next()) {
+			BookAuthors bookAuthor = new BookAuthors();
+			bookAuthor.setBookId(rs.getInt("bookId"));
+			bookAuthor.setAuthorId(rs.getInt("authorId"));
+			return bookAuthor;
+		}
+		return null;
+	}
 }

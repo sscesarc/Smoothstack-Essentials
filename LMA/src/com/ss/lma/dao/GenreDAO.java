@@ -40,4 +40,14 @@ public class GenreDAO extends BaseDAO<Genre> {
 		}
 		return list;
 	}
+
+	public Genre extractSingleData(ResultSet rs) throws SQLException, ClassNotFoundException {
+		if (rs.next()) {
+			Genre genre = new Genre();
+			genre.setGenre_id(rs.getInt("genre_id"));
+			genre.setGenre_name(rs.getString("genre_name"));
+			return genre;
+		}
+		return null;
+	}
 }

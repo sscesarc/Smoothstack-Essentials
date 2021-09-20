@@ -30,6 +30,10 @@ public class LibraryBranchDAO extends BaseDAO<LibraryBranch> {
 		save("delete from tbl_library_branch where branchId = ?", new Object[] {branch.getBranchId()});
 	}
 	
+    public LibraryBranch readBranchFromId(Integer id) throws SQLException, ClassNotFoundException {
+        return readSingle("SELECT * FROM tbl_library_branch WHERE branchId = ?", new Object[] { id });
+    }
+	
 	public List<LibraryBranch> extractData(ResultSet rs) throws SQLException {
 		List<LibraryBranch> list = new ArrayList<>();
 		while(rs.next()) {
@@ -41,4 +45,15 @@ public class LibraryBranchDAO extends BaseDAO<LibraryBranch> {
 		}
 		return list;
 	}
+	
+    public LibraryBranch extractSingleData(ResultSet rs) throws SQLException, ClassNotFoundException {
+        if (rs.next()) {
+            LibraryBranch branch = new LibraryBranch();
+            branch.setBranchId(rs.getInt("branchId"));
+            branch.setBranchName(rs.getString("branchName"));
+            branch.setBranchAddress(rs.getString("branchAddress"));
+            return branch;
+        }
+        return null;
+    }
 }

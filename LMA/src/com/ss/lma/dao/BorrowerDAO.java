@@ -42,4 +42,17 @@ public class BorrowerDAO extends BaseDAO<Borrower> {
 		}
 		return list;
 	}
+
+	
+	public Borrower extractSingleData(ResultSet rs) throws SQLException, ClassNotFoundException {
+		if (rs.next()) {
+			Borrower borrower = new Borrower();
+			borrower.setCardNo(rs.getInt("cardNo"));
+			borrower.setName(rs.getString("name"));
+			borrower.setAddress(rs.getString("address"));
+			borrower.setPhone(rs.getString("phone"));
+			return borrower;
+		}
+		return null;
+	}
 }

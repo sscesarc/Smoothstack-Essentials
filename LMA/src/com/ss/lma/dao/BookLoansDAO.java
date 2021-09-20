@@ -22,6 +22,14 @@ public class BookLoansDAO extends BaseDAO<BookLoans> {
 		return read("select * from tbl_book_loans", null);
 	}
 	
+    public List<BookLoans> readLoansByCardNoAndBranchId(Integer cardNo, Integer branchId) throws SQLException, ClassNotFoundException {
+        return read("select * from tbl_book_loans where cardNo = ? AND branchId = ?", new Object[] { cardNo, branchId });
+    }
+    
+    public List<BookLoans> readLoansByCardNo(Integer cardNo) throws SQLException, ClassNotFoundException {
+        return read("select * from tbl_book_loans where cardNo = ? ORDER BY dueDate asc", new Object[] { cardNo });
+    }
+	
 	public void updateBookLoan(BookLoans bookLoan) throws ClassNotFoundException, SQLException {
 		save("update tbl_book_loans set dateOut = ?, dueDate = ? where bookId = ? and branchId = ? and cardNo = ?", new Object[] {bookLoan.getDateOut(), bookLoan.getDueDate(), bookLoan.getBookId(), bookLoan.getBranchId(), bookLoan.getCardNo()});
 	}
@@ -42,5 +50,19 @@ public class BookLoansDAO extends BaseDAO<BookLoans> {
 			list.add(bookLoan);
 		}
 		return list;
+	}
+
+	
+	public BookLoans extractSingleData(ResultSet rs) throws SQLException, ClassNotFoundException {
+		if (rs.next()) {
+			BookLoans bookLoan = new BookLoans();
+			bookLoan.setBookId(rs.getInt("bookId"));
+			bookLoan.setBranchId(rs.getInt("branchId"));
+			bookLoan.setCardNo(rs.getInt("cardNo"));
+			bookLoan.setDateOut(rs.getTimestamp("dateOut"));
+			bookLoan.setDueDate(rs.getTimestamp("dueDate"));
+			return bookLoan;
+		}
+		return null;
 	}
 }

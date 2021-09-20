@@ -58,5 +58,19 @@ public abstract class BaseDAO<T> {
 		return extractData(rs);
 	}
 	
+    protected T readSingle(String sql, Object[] values) throws SQLException, ClassNotFoundException {
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        if (values != null) {
+            int count = 1;
+            for (Object o : values) {
+                pstmt.setObject(count, o);
+                count++;
+            }
+        }
+        return extractSingleData(pstmt.executeQuery());
+    }
+	
 	public abstract List<T> extractData(ResultSet rs) throws ClassNotFoundException, SQLException;
+	
+	public abstract T extractSingleData(ResultSet rs) throws SQLException, ClassNotFoundException;
 }
