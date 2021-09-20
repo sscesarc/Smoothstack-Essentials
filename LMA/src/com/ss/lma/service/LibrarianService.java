@@ -138,7 +138,7 @@ public class LibrarianService {
                 bcdao.addBookCopy(copy);
                 System.out.println("Created data row");
             } catch (Exception e) {
-                System.out.println("Failed to create data");
+                //System.out.println("Failed to create data");
                 conn.rollback();
             } finally {
                 if (conn != null) {
